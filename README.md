@@ -23,7 +23,7 @@ services at a real-estate brokerage.
 
 | Project | What it does | Stack |
 |---|---|---|
-| **[QueryGuard](https://github.com/jliu4950/queryguard)** [![CI](https://github.com/jliu4950/queryguard/actions/workflows/ci.yml/badge.svg)](https://github.com/jliu4950/queryguard/actions) | Text-to-SQL service that treats model output as untrusted: schema retrieval, `sqlglot` AST validation, and row-level authorization injected server-side. 25-case eval suite runs in CI on Python 3.9–3.13. | FastAPI · sqlglot · SQLAlchemy · SQLite |
+| **[QueryGuard](https://github.com/jliu4950/queryguard)** [![CI](https://github.com/jliu4950/queryguard/actions/workflows/ci.yml/badge.svg)](https://github.com/jliu4950/queryguard/actions) | Text-to-SQL service that treats model output as untrusted: schema retrieval, `sqlglot` AST validation, and row-level authorization injected server-side. Two suites run in CI on Python 3.9–3.13 — 25 correctness cases and 44 adversarial cases that assume the model is hostile. | FastAPI · sqlglot · SQLAlchemy · SQLite |
 
 ### QueryGuard — the part worth looking at
 
@@ -34,18 +34,24 @@ transformation, not a prompt instruction.
 
 [![QueryGuard dashboard showing a sales-rep query whose generated SQL contains the server-injected authorization predicate](https://raw.githubusercontent.com/jliu4950/queryguard/main/docs/assets/demo-authorized-query.png)](https://github.com/jliu4950/queryguard#demo)
 
-On the repository's deterministic fictional dataset the 25-case suite reports execution
-accuracy 1.0, zero authorization violations, and a 1.0 safety interception rate. Those
-numbers describe this demo harness, not general Text-to-SQL model quality — the
-[README](https://github.com/jliu4950/queryguard#evaluation) is explicit about the scope
-and the [limitations](https://github.com/jliu4950/queryguard#limitations-and-future-work).
+A second suite attacks that claim. For its 44 adversarial cases the model is replaced by one
+returning attacker-chosen SQL — what a jailbroken model effectively gives you — and the pass
+criterion is *disclosure*, not refusal, since refusing everything would score perfectly and be
+useless. Writing it found six real bypasses in controls the README already claimed to have,
+including `SELECT *` disclosing every customer email and a function blocklist that could never
+match the functions it named. All six are fixed; CI now fails on any out-of-scope disclosure.
+
+Metrics describe this demo harness on fictional data, not general Text-to-SQL model quality.
+The repo is explicit about [scope](https://github.com/jliu4950/queryguard#evaluation),
+[findings](https://github.com/jliu4950/queryguard/blob/main/docs/adversarial-evaluation.md),
+and [what still doesn't hold](https://github.com/jliu4950/queryguard#limitations-and-future-work).
 
 ## Currently
 
 *Updated September 2026*
 
-- Extending QueryGuard's evaluation suite with an adversarial subset covering
-  prompt-injection attempts against the authorization layer.
+- Next on QueryGuard: replacing the blunt “reject every subquery for sales reps” rule with a
+  scope-aware rewrite that constrains every table reference.
 - Building an event-driven backend service with load-test and observability evidence.
 - Daily algorithm practice in [neetcode-submissions](https://github.com/jliu4950/neetcode-submissions).
 
