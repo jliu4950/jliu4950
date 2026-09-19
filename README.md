@@ -1,4 +1,4 @@
-<img src="./assets/banner.svg" alt="June Liu — AI/ML + Backend Engineering" width="1280" />
+<img src="./assets/banner.svg" alt="June Liu" width="1280" />
 
 # Hi, I'm June Liu
 
