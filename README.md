@@ -1,16 +1,26 @@
-## Hi there 👋
+# Hi, I'm June Liu
 
-<!--
-**jliu4950/jliu4950** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+**M.S. in Computer Science at Northeastern University**  
+Building reliable AI applications and scalable backend systems.  
+Currently seeking **Summer 2027 Software Engineering, Backend, and AI/ML Engineering internships**.
 
-Here are some ideas to get you started:
+## Featured Project
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+### [QueryGuard](https://github.com/jliu4950/queryguard)
+A safe, evaluation-driven Text-to-SQL service for fictional ecommerce data.
+
+- Retrieves relevant schema context before SQL generation
+- Validates generated SQL with an AST allowlist and read-only constraints
+- Enforces sales-rep row-level access on the server, rather than trusting the prompt
+- Includes 25 versioned evaluation cases and CI on Python 3.9 and 3.13
+- Built with Python, FastAPI, SQLAlchemy, SQLite, and sqlglot
+
+## What I Work On
+
+- **AI systems:** LLM applications, retrieval pipelines, evaluation, and safety guardrails
+- **Backend systems:** APIs, data modeling, distributed processing, caching, and observability
+- **Engineering tools:** Python, Java, SQL, TypeScript, FastAPI, Spring Boot, PostgreSQL, Kafka, Redis, Docker, and AWS
+
+## Connect
+
+- [LinkedIn](https://www.linkedin.com/in/juneliu4950)
