@@ -24,6 +24,7 @@ services at a real-estate brokerage.
 | Project | What it does | Stack |
 |---|---|---|
 | **[QueryGuard](https://github.com/jliu4950/queryguard)** [![CI](https://github.com/jliu4950/queryguard/actions/workflows/ci.yml/badge.svg)](https://github.com/jliu4950/queryguard/actions) | Text-to-SQL service that treats model output as untrusted: schema retrieval, `sqlglot` AST validation, and row-level authorization injected server-side. Two suites run in CI on Python 3.9–3.13 — 25 correctness cases and 44 adversarial cases that assume the model is hostile. | FastAPI · sqlglot · SQLAlchemy · SQLite |
+| **[StreamTally](https://github.com/jliu4950/streamtally)** [![CI](https://github.com/jliu4950/streamtally/actions/workflows/ci.yml/badge.svg)](https://github.com/jliu4950/streamtally/actions) | Real-time event analytics whose counts survive redelivery and mid-batch failure. An exactness harness tries to make them wrong; CI runs it against a real Kafka broker and Postgres on every push. | TypeScript · Kafka · Postgres · React |
 
 ### QueryGuard — the part worth looking at
 
@@ -46,13 +47,26 @@ The repo is explicit about [scope](https://github.com/jliu4950/queryguard#evalua
 [findings](https://github.com/jliu4950/queryguard/blob/main/docs/adversarial-evaluation.md),
 and [what still doesn't hold](https://github.com/jliu4950/queryguard#limitations-and-future-work).
 
+### StreamTally — the number has to stay right
+
+Anyone can render a line chart from a counter. The hard part is the counter staying correct
+when the broker redelivers a batch and the consumer dies halfway through it. StreamTally makes
+that claim falsifiable and ships the harness that attacks it — including the case where a batch
+is durably written and the process then dies *before* the offset commit, which is where an
+aggregator that trusts its delivery semantics starts double-counting.
+
+Ingest sustains **36,000 events/s** on a laptop at p99 49 ms, and the benchmark asserts every
+accepted event was still counted exactly once, because a throughput number from a pipeline that
+drops events is worse than no number.
+
 ## Currently
 
 *Updated September 2026*
 
 - Next on QueryGuard: replacing the blunt “reject every subquery for sales reps” rule with a
   scope-aware rewrite that constrains every table reference.
-- Building an event-driven backend service with load-test and observability evidence.
+- Next on StreamTally: aging out the dedupe table on a retention window, and testing consumer
+  rebalance with more than one aggregator.
 - Daily algorithm practice in [neetcode-submissions](https://github.com/jliu4950/neetcode-submissions).
 
 ## What I Work On
