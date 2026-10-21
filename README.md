@@ -6,9 +6,6 @@ M.S. Computer Science at Northeastern University, building reliable AI applicati
 and scalable backend systems.
 **Seeking a Summer 2027 software engineering / AI internship.**
 
-Five years of production experience before the degree: an LLM Text-to-SQL agent and a
-CRM platform at an industrial-supply company, and lead-routing and streaming-analytics
-services at a real-estate brokerage.
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Java](https://img.shields.io/badge/Java-007396?style=flat-square&logo=openjdk&logoColor=white)
